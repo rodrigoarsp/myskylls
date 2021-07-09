@@ -4,15 +4,14 @@ import {
   Text, 
   StyleSheet, 
   TextInput, 
-  Platform,
-  TouchableOpacity
+  Platform
 } from 'react-native';
 
 import { Button } from '../components/Button';
 import { SkillCard } from '../components/SkillCard';
 
 export function Home() {
-  const [newSkill, setNewSkill] = useState('');
+  const [newSkill, setNewSkill] = useState(' ');
   const [myskills, setMySkills] = useState([]);
 
   function handleAddNewSkill(){
@@ -31,19 +30,19 @@ export function Home() {
         onChangeText={setNewSkill}
       />
       
-      <Button/>
+      <Button onPress={handleAddNewSkill}/>
 
       <Text style={[styles.title, { marginVertical: 50 }]}>
         My Skills
       </Text>
       {
         myskills.map(skill =>(
-          <SkillCard />
+          <SkillCard skill={skill}/>
         ))
       }
-    
+
     </View>
-     
+
   )
 }
 
