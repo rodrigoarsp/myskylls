@@ -1,4 +1,5 @@
-import React, { useState } from 'react';
+import React, { useState, useEffect } from 'react'; // Sempre começando com use: useState ou useEfects
+                                         // Podemos criar nossos hooks
 import { 
   View, 
   Text, 
@@ -12,23 +13,40 @@ import { Button } from '../components/Button';
 import { SkillCard } from '../components/SkillCard';
 
 export function Home() {
+  //     Estado    função que atualiza o estado
   const [newSkill, setNewSkill] = useState('');
   const [mySkills, setMySkills] = useState([]);
+  const [greeting, setGreeting] = useState('');
+
+  // oldState => [React Native, TypeScript]
+  // [[React Native, TypeScript], JavaScript]
+  // Temos que utilizar o spredOperator, para colocar os elementos
+  //                                      tudo em um único vetor
+  // [...oldState, TypeScript]
 
   function handleAddNewSkill(){
     setMySkills(oldState => [...oldState, newSkill]);
   }
 
+  useEffect(() => {
+    const currentHour = new Date().getHours();
+    console.log(currentHour);
+  }, []);
+
   return(
 
     <View style={styles.container}>
-       <Text style={styles.title}>Welcome, Rodrigo</Text>
+      <Text style={styles.title}>Welcome, Rodrigo</Text>
+
+      <Text style={styles.greeting}>
+        { greeting }
+      </Text>   
 
       <TextInput 
         style={styles.input}
         placeholder="New skill"
         placeholderTextColor="#555"
-        onChangeText={setNewSkill}
+        onChangeText={setNewSkill} // Fica observado toda mudança
       />
       
       <Button onPress={handleAddNewSkill}/>
