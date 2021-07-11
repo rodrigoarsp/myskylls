@@ -65,7 +65,10 @@ export function Home() {
         onChangeText={setNewSkill} // Fica observado toda mudança
       />
       
-      <Button onPress={handleAddNewSkill}/>
+      <Button 
+        title="Add"
+        onPress={handleAddNewSkill}
+      />
 
       <Text style={[styles.title, { marginVertical: 50 }]}>
         My Skills
