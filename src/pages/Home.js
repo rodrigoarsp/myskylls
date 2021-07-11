@@ -31,6 +31,13 @@ export function Home() {
   useEffect(() => {
     const currentHour = new Date().getHours();
     console.log(currentHour);
+    if (currentHour < 12){
+      setGreeting("Good Morning");
+    }else if(currentHour >= 12 && currentHour < 18){
+      setGreeting("Good Afternoon");
+    }else{
+      setGreeting("Good Night");
+    }
   }, []);
 
   return(
@@ -89,4 +96,7 @@ const styles = StyleSheet.create({
     marginTop: 30,
     borderRadius: 7
   },
+  greeting:{
+    color: '#FFF',
+  }
 });
