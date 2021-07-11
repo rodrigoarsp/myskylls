@@ -12,10 +12,16 @@ import {
 import { Button } from '../components/Button';
 import { SkillCard } from '../components/SkillCard';
 
+interface SkillData {
+  id: string;
+  name: string;
+  // date?:Date (? elemento opicional)
+}
+
 export function Home() {
   //     Estado    função que atualiza o estado
   const [newSkill, setNewSkill] = useState('');
-  const [mySkills, setMySkills] = useState([]);
+  const [mySkills, setMySkills] = useState<SkillData[]>([]);
   const [greeting, setGreeting] = useState('');
 
   // oldState => [React Native, TypeScript]
@@ -25,7 +31,11 @@ export function Home() {
   // [...oldState, TypeScript]
 
   function handleAddNewSkill(){
-    setMySkills(oldState => [...oldState, newSkill]);
+    const data = {
+      id: String(new Date().getTime()),
+      name: newSkill
+    }
+    setMySkills(oldState => [...oldState, data]);
   }
 
   useEffect(() => {
@@ -63,9 +73,9 @@ export function Home() {
       <FlatList 
         //showsVerticalScrollIndicator={false}
         data={mySkills}
-        keyExtractor={item => item}
+        keyExtractor={item => item.id}
         renderItem={({ item }) => (
-          <SkillCard skill={item}/>
+          <SkillCard skill={item.name}/>
         )}
       />
 
@@ -78,9 +88,8 @@ const styles = StyleSheet.create({
   container:{
     flex: 1,
     backgroundColor: '#121015',
-    paddingHorizontal: 20,
-    paddingVertical: 70,
     paddingHorizontal: 30,
+    paddingVertical: 70,
   },
   title:{
     color: '#FFF',
