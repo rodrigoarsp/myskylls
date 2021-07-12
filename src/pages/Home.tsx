@@ -35,12 +35,19 @@ export function Home() {
       id: String(new Date().getTime()),
       name: newSkill
     }
+    console.log(data)
     setMySkills(oldState => [...oldState, data]);
+  }
+
+  function handleRemoveSkill (id: string){
+    setMySkills(oldState => oldState.filter(
+      skill => skill.id !== id
+    ))
   }
 
   useEffect(() => {
     const currentHour = new Date().getHours();
-    if (currentHour < 12){
+    if (currentHour < 12 && currentHour > 6){
       setGreeting("Good Morning");
     }else if(currentHour >= 12 && currentHour < 18){
       setGreeting("Good Afternoon");
@@ -74,11 +81,15 @@ export function Home() {
         My Skills
       </Text>
       <FlatList 
-        //showsVerticalScrollIndicator={false}
+        showsVerticalScrollIndicator={false}
         data={mySkills}
         keyExtractor={item => item.id}
         renderItem={({ item }) => (
-          <SkillCard skill={item.name}/>
+          <SkillCard 
+            skill={item.name}
+            onPress={() => handleRemoveSkill(item.id)} // Quando a função presisar 
+            // de um parâmetro é preciso usar essa notação
+          />
         )}
       />
 
